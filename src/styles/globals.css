@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  /* HerCombat Lab Color Palette */
+  --color-hot-pink: #FF2E9A;
+  --color-warrior-orange: #FF7A00;
+  --color-mint-green: #77F2C5;
+  --color-dark-charcoal: #1C1C1C;
+  --color-soft-grey: #E8E8E8;
+  
+  /* Typography */
+  --font-family-display: "Montserrat", system-ui, -apple-system, sans-serif;
+  --font-family-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  @font-face {
+    font-family: "Montserrat";
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/montserrat/v26/JTUSjIg1_i6t8kCHKm459WlhyyTh89Y.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Inter";
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2") format("woff2");
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-family-body);
+    background-color: var(--color-dark-charcoal);
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}
