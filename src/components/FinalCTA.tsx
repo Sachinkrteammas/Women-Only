@@ -3,14 +3,14 @@ import { ArrowRight, Mail, Phone, User, CheckCircle2 } from "lucide-react";
 
 export function FinalCTA() {
   const GOOGLE_SHEETS_URL =
-    "https://script.google.com/macros/s/AKfycbzFqcBJYhEaL8WCLnd3ZwqAuBEDm12bdEOrSf2Uahafuf6cE4V5rmtsudQ1PG_n56YE/exec";
+    "https://script.google.com/macros/s/AKfycbxxvAeVN3RgKh6tTuPyvfgaLm4zAlhL07RB59NdOI3RrMTv1fFAINR0B0HCPIOOv34Iqw/exec";
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
   });
-
+//AKfycbxxvAeVN3RgKh6tTuPyvfgaLm4zAlhL07RB59NdOI3RrMTv1fFAINR0B0HCPIOOv34Iqw
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -23,35 +23,40 @@ export function FinalCTA() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitError(null);
+  e.preventDefault();
+  setSubmitError(null);
 
-    try {
-      setIsSubmitting(true);
+  try {
+    setIsSubmitting(true);
 
-      const response = await fetch(GOOGLE_SHEETS_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // JSON like curl
-        },
-        body: JSON.stringify(formData),
-      });
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("phone", formData.phone);
 
-      if (!response.ok)
-        throw new Error(`Request failed with status ${response.status}`);
+    const response = await fetch(GOOGLE_SHEETS_URL, {
+      method: "POST",
+      body: formDataToSend, // ✅ NO headers
+    });
 
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setFormData({ name: "", email: "", phone: "" });
-        setIsSubmitted(false);
-      }, 4000);
-    } catch (error) {
-      console.error("Google Sheets submission error:", error);
-      setSubmitError("Unable to submit right now. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
     }
-  };
+
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setFormData({ name: "", email: "", phone: "" });
+      setIsSubmitted(false);
+    }, 4000);
+
+  } catch (error) {
+    console.error("Google Sheets submission error:", error);
+    setSubmitError("Unable to submit right now. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <section className="py-20 md:py-32 bg-[#E8E8E8]">
